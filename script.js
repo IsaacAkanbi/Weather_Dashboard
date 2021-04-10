@@ -34,6 +34,51 @@ let dayFiveEl = document.getElementById('forecast5');
 let dayFiveDate = document.getElementById('date5');
 let dayFiveTemp = document.getElementById('temperature5');
 let dayFiveHum = document.getElementById('humidity5');
+let pastCity = document.getElementById('pastCity');
+
+function getHistory() {
+    const d = localStorage.getItem("history")
+    return JSON.parse(d) || []
+}
+
+function putHistory(arr) {
+    const d = JSON.stringify(arr)
+    localStorage.setItem("history", d)
+}
+
+function addHistoryItem(item) {
+    const history = getHistory()
+    putHistory(history.concat(item))
+}
+
+const ele = document.getElementById("city-list")
+
+function displayHistory() {
+    getHistory().forEach((item) => {
+
+        // creating a div
+        const cityDiv = document.createElement("div");
+
+        // this is how you would set a class
+        cityDiv.setAttribute('class', 'cityName')
+        cityDiv.setAttribute('id', item)
+
+        // setting the inner text
+        cityDiv.textContent = item;
+
+        // appending that div with the city name
+        ele.append(cityDiv)
+        // ele.append("<div>" + item + "</div>"); 
+    })
+}
+
+function handleCityClick(event) {
+    console.log(event.target)
+    console.log(event.target.getAttribute('id'))
+    // if (event.target)
+}
+ele.addEventListener('click', handleCityClick);
+displayHistory();
 
 function searchWeather() {
     var cityName = document.getElementById('cityName').value;
@@ -54,6 +99,8 @@ function searchWeather() {
         let icon = data.weather.icon;
         let windSpeed = data.wind.speed;
         console.log(city,temp,humidity,pressure,date,icon,windSpeed);
+
+        addHistoryItem(city)
         
         // Creating Dynamic content
           // SECOND we want to add ATTRIBUTES and/or CONTEXT (Activities 5 & 6)
@@ -68,7 +115,7 @@ function searchWeather() {
         humEl.textContent = "Humidity: " + humidity;
         windEl.textContent = "Wind Speed: " + windSpeed;
 
-        // LASTLY we to put the NEW ELEMENT in the DOM (Activities 7 & 8)
+        // LASTLY put the NEW ELEMENT in the DOM
         current.append(cityDisplay);
         current.append(tempEl);
         current.append(pressureEl);
@@ -85,9 +132,7 @@ function searchWeather() {
             })
             .then(function(data) {
                 console.log(data);
-
-                // How would I PULL out the LIST DATA?
-                //Create variables
+                //Create variables to pull out thw list Data from API documentation
                 let forecastDate_1 = data.list[4].dt_txt;
                 let forecastTemp_1 = data.list[4].main.temp;
                 let forecastHum_1 = data.list[4].main.humidity;
@@ -152,11 +197,6 @@ function searchWeather() {
                 dayFiveEl.append(dayFiveDate);
                 dayFiveEl.append(dayFiveTemp);
                 dayFiveEl.append(dayFiveHum);
-       
             });
     })
-
 }
-
-
-// Local Storage Activities (21 & 22 (23 - 24))

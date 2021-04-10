@@ -12,14 +12,14 @@
   </head>
 
   <body>
-    <header class="hero"> Weather Dashboard</header>
+    <header class="hero"> <h2>WEATHER DASHBOARD</h2> </header>
     <main class="flex-row justify-center align-center col-auto p-4 bg-light">
       <div class="row">
         <div class="col s12 m5" id="search-area">
             <input name="city" placeholder="Enter city" id="cityName" type="text"/>
             <button type="submit" class="btn" onclick="searchWeather()">Search city weather</button>
             <div class="col s8 m4">
-              <ul class="city-list">
+              <ul id="city-list" class = "blue-grey darken-1">
                   
               </ul>
             </div> 
@@ -47,50 +47,42 @@
      
       <div class="row s6 m4">
         <header> <h3> 5-day Forecast</h3> </header>
-        <div class="col s3 m3">
-          <div id="forecast1" class="card-panel teal">
-            <h3 id="date1"></h3>
+          <div id="forecast1" class="col card-panel teal">
+            <h6 id="date1"></h6>
             <p id="temperature1"></p>
             <p id="humidity1"></p>
             <p id="icon1"></p>
           </div>
 
-          <div id="forecast2" class="card-panel teal">
-            <h3 id="date2"></h3>
+          <div id="forecast2" class="col card-panel teal">
+            <h6 id="date2"></h6>
             <p id="temperature2"></p>
             <p id="humidity2"></p>
             <p id="icon2"></p>
           </div>
 
-          <div id="forecast3" class="card-panel teal">
-            <h3 id="date3"></h3>
+          <div id="forecast3" class="col card-panel teal">
+            <h6 id="date3"></h6>
             <p id="temperature3"></p>
             <p id="humidity3"></p>
             <p id="icon3"></p>
           </div>
 
-          <div id="forecast4" class="card-panel teal">
-            <h3 id="date4"></h3>
+          <div id="forecast4" class="col card-panel teal">
+            <h6 id="date4"></h6>
             <p id="temperature4"></p>
             <p id="humidity4"></p>
             <p id="icon4"></p>
           </div>
 
-          <div id="forecast5" class="card-panel teal">
-            <h3 id="date5"></h3>
+          <div id="forecast5" class="col card-panel teal">
+            <h6 id="date5"></h6>
             <p id="temperature5"></p>
             <p id="humidity5"></p>
             <p id="icon5"></p>
           </div>
 
-
-
         </div>
-
-
-
-
-      </div>
 
 
     </main>
