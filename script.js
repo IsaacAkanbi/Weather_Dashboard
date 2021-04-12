@@ -105,8 +105,8 @@ function searchWeather() {
         // Creating Dynamic content
           // SECOND we want to add ATTRIBUTES and/or CONTEXT (Activities 5 & 6)
         cityDisplay.textContent = city;        
-        tempEl.textContent = "Temp: " + temp;
-        tempEl.setAttribute('class', 'current')
+        tempEl.textContent = "Temp: " + temp + " Kelvin";
+        tempEl.setAttribute('class', 'current') 
         console.log(tempEl);
 
         dateEl.textContent = "Date: " + date;
