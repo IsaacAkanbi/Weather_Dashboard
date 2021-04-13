@@ -76,14 +76,21 @@ function handleCityClick(event) {
     console.log(event.target)
     console.log(event.target.getAttribute('id'))
     // if (event.target)
+
+    // Capture the TEXT of the button/element that the User clicked on
+    var prevSearch = event.target.getAttribute('id');
+    // Make a NEW API (fetch) call --> pass that CITY NAME as 
+    searchWeather(prevSearch);
 }
 ele.addEventListener('click', handleCityClick);
 displayHistory();
 
-function searchWeather() {
-    var cityName = document.getElementById('cityName').value;
-    var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${API_KEY}`
+function searchWeather(cityName) {
     console.log(cityName)
+    if(cityName === undefined) {
+        cityName = document.getElementById('cityName').value;
+    }
+    var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${API_KEY}`
     fetch(url)
     .then(function(response) {
         return response.json();
@@ -96,7 +103,7 @@ function searchWeather() {
         let humidity = data.main.humidity;
         let pressure = data.main.pressure;
         let date = data.dt;
-        let icon = data.weather.icon;
+        let icon = data.weather[0].icon;
         let windSpeed = data.wind.speed;
         console.log(city,temp,humidity,pressure,date,icon,windSpeed);
 
@@ -111,7 +118,7 @@ function searchWeather() {
 
         dateEl.textContent = "Date: " + date;
         pressureEl.textContent = "Pressure: " + pressure;
-        iconEl.textContent = "icon: " + icon;
+        iconEl.setAttribute('src', `https://openweathermap.org/img/w/${icon}.png` );
         humEl.textContent = "Humidity: " + humidity;
         windEl.textContent = "Wind Speed: " + windSpeed;
 
@@ -134,6 +141,8 @@ function searchWeather() {
                 console.log(data);
                 //Create variables to pull out thw list Data from API documentation
                 let forecastDate_1 = data.list[4].dt_txt;
+                let strippedDate = forecastDate_1.split(" ");
+                console.log(strippedDate); // --. An ARRAY with 2 values [0, 1]
                 let forecastTemp_1 = data.list[4].main.temp;
                 let forecastHum_1 = data.list[4].main.humidity;
                 console.log(forecastDate_1, forecastTemp_1, forecastHum_1);
