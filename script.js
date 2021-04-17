@@ -1,5 +1,7 @@
 let API_KEY = '69f4c0c4f0da1289d0d44cd43a947142'
-var citiesArr = [];
+//var citiesArray = JSON.parse(localStorage.getItem('history'));
+// function renderBtn() = citiesArray.setItem 
+
 // We GRAB a reference to the HTML element 
 let cityDisplay = document.getElementById('city');
 let current = document.getElementById('currentWeather');
@@ -54,18 +56,22 @@ function addHistoryItem(item) {
 const ele = document.getElementById("city-list")
 
 function displayHistory() {
+    // Clear the HTML/DOM container element  "<ul class="cityLlist">"
+    ele.innerHTML = '';
+    // Retrieve Our History Array
     getHistory().forEach((item) => {
 
         // creating a div
-        const cityDiv = document.createElement("div");
+        const cityDiv = document.createElement("button");
 
         // this is how you would set a class
         cityDiv.setAttribute('class', 'cityName')
+        cityDiv.setAttribute('class', 'btn btn-primary')
         cityDiv.setAttribute('id', item)
 
         // setting the inner text
         cityDiv.textContent = item;
-
+        console.log(cityDiv);
         // appending that div with the city name
         ele.append(cityDiv)
         // ele.append("<div>" + item + "</div>"); 
@@ -79,6 +85,8 @@ function handleCityClick(event) {
 
     // Capture the TEXT of the button/element that the User clicked on
     var prevSearch = event.target.getAttribute('id');
+    
+
     // Make a NEW API (fetch) call --> pass that CITY NAME as 
     searchWeather(prevSearch);
 }
@@ -86,16 +94,21 @@ ele.addEventListener('click', handleCityClick);
 displayHistory();
 
 function searchWeather(cityName) {
+
+    let userInput = document.getElementById('cityName');
     console.log(cityName)
     if(cityName === undefined) {
         cityName = document.getElementById('cityName').value;
     }
-    var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${API_KEY}`
+    var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${API_KEY}&units=metric`
     fetch(url)
     .then(function(response) {
         return response.json();
     })
     .then(function(data) {
+        // Clear the FORM INPUT
+        userInput.value = '';
+
         console.log(data);
         // What data do we need to display on the DOM?
         let city = data.name;
@@ -105,22 +118,26 @@ function searchWeather(cityName) {
         let date = data.dt;
         let icon = data.weather[0].icon;
         let windSpeed = data.wind.speed;
+        // let longVar = data.coord.lon
+        // let latVar = data/coord/lat
         console.log(city,temp,humidity,pressure,date,icon,windSpeed);
 
-        addHistoryItem(city)
+        addHistoryItem(city);
+        displayHistory();
         
         // Creating Dynamic content
           // SECOND we want to add ATTRIBUTES and/or CONTEXT (Activities 5 & 6)
         cityDisplay.textContent = city;        
-        tempEl.textContent = "Temp: " + temp + " Kelvin";
+        tempEl.textContent = "Temp: " + temp + " °C";
         tempEl.setAttribute('class', 'current') 
         console.log(tempEl);
-
-        dateEl.textContent = "Date: " + date;
-        pressureEl.textContent = "Pressure: " + pressure;
+        var da = new Date();
+        
+        dateEl.textContent =  "Date: " + da;
+        pressureEl.textContent = "Pressure: " + pressure + ' Pa';
         iconEl.setAttribute('src', `https://openweathermap.org/img/w/${icon}.png` );
-        humEl.textContent = "Humidity: " + humidity;
-        windEl.textContent = "Wind Speed: " + windSpeed;
+        humEl.textContent = "Humidity: " + humidity + ' %';
+        windEl.textContent = "Wind Speed: " + windSpeed + ' km/h';
 
         // LASTLY put the NEW ELEMENT in the DOM
         current.append(cityDisplay);
@@ -132,7 +149,7 @@ function searchWeather(cityName) {
         current.append(windEl);
 
         // Make another API CALL
-        var urlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${API_KEY}`
+        var urlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${API_KEY}&units=metric`
         fetch(urlForecast)
             .then(function(response) {
                 return response.json();
@@ -145,11 +162,13 @@ function searchWeather(cityName) {
                 console.log(strippedDate); // --. An ARRAY with 2 values [0, 1]
                 let forecastTemp_1 = data.list[4].main.temp;
                 let forecastHum_1 = data.list[4].main.humidity;
+               // let foreCastIcon_1 = data.
                 console.log(forecastDate_1, forecastTemp_1, forecastHum_1);
-
+                http://openweathermap.org/img/wn/10d@2x.png
                 dayOneDate.textContent = forecastDate_1;
-                dayOneTemp.textContent = "Temperature: " + forecastTemp_1;
-                dayOneHum.textContent = "Humidity: " + forecastHum_1;
+                dayOneTemp.textContent = "Temp: " + forecastTemp_1 + ' °C';
+                dayOneHum.textContent = "Humidity: " + forecastHum_1 + ' %';
+                //iconEl.setAttribute('src', `https://openweathermap.org/img/wn/${icon}.png` );
 
                 dayOneEl.append(dayOneDate);
                 dayOneEl.append(dayOneTemp);
@@ -161,8 +180,8 @@ function searchWeather(cityName) {
                 console.log(forecastDate_2, forecastTemp_2, forecastHum_2);
 
                 dayTwoDate.textContent = forecastDate_2;
-                dayTwoTemp.textContent = "Temperature: " + forecastTemp_2;
-                dayTwoHum.textContent = "Humidity: " + forecastHum_2;
+                dayTwoTemp.textContent = "Temp: " + forecastTemp_2 + ' °C';
+                dayTwoHum.textContent = "Humidity: " + forecastHum_2 + ' %';
 
                 dayTwoEl.append(dayTwoDate);
                 dayTwoEl.append(dayTwoTemp);
@@ -174,8 +193,8 @@ function searchWeather(cityName) {
                 console.log(forecastDate_3, forecastTemp_3, forecastHum_3);
 
                 dayThreeDate.textContent = forecastDate_3;
-                dayThreeTemp.textContent = "Temperature: " + forecastTemp_3;
-                dayThreeHum.textContent = "Humidity: " + forecastHum_3;
+                dayThreeTemp.textContent = "Temp: " + forecastTemp_3 + ' °C';
+                dayThreeHum.textContent = "Humidity: " + forecastHum_3 + ' %';
 
                 dayThreeEl.append(dayThreeDate);
                 dayThreeEl.append(dayThreeTemp);
@@ -187,8 +206,8 @@ function searchWeather(cityName) {
                 console.log(forecastDate_4, forecastTemp_4, forecastHum_4);
 
                 dayFourDate.textContent = forecastDate_4;
-                dayFourTemp.textContent = "Temperature: " + forecastTemp_4;
-                dayFourHum.textContent = "Humidity: " + forecastHum_4;
+                dayFourTemp.textContent = "Temp: " + forecastTemp_4 + ' °C';
+                dayFourHum.textContent = "Humidity: " + forecastHum_4 + ' %';
 
                 dayFourEl.append(dayFourDate);
                 dayFourEl.append(dayFourTemp);
@@ -200,8 +219,8 @@ function searchWeather(cityName) {
                 console.log(forecastDate_5, forecastTemp_5, forecastHum_5);
 
                 dayFiveDate.textContent = forecastDate_5;
-                dayFiveTemp.textContent = "Temperature: " + forecastTemp_5;
-                dayFiveHum.textContent = "Humidity: " + forecastHum_5;
+                dayFiveTemp.textContent = "Temp: " + forecastTemp_5 + ' °C';
+                dayFiveHum.textContent = "Humidity: " + forecastHum_5 + ' %';
 
                 dayFiveEl.append(dayFiveDate);
                 dayFiveEl.append(dayFiveTemp);

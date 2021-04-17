@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <header> <h2>WEATHER DASHBOARD</h2> </header>
+    <main class="container">
+                <div class="row">
+                <div class="col s2 m5" id="search-area">
+                    <input name="city" placeholder="Enter city" id="cityName" type="text"/>
+                    <button type="submit" class="btn" onclick="searchWeather()">Search city weather</button>
+                    <div class="col s8 m4">
+                      <ul id="city-list" class = "blue-grey darken-1">
+                          
+                      </ul>
+                    </div> 
+                </div>
+
+                <div class="col s10 m5" id="forecast">
+                    <div class="row">
+                     
+                        <div id="currentWeather" class="card-panel teal">
+                          <span class="white-text" placeholder="display-result">
+                          <h3 id="city"></h3>
+                          <p id="date"></p>
+                          <img id="icon"/>
+                          <p id="pressure"></p>
+                          <p id="temp"></p>
+                          <p id="hum"></p>
+                          <p id="wind"></p>
+                          </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                            <header> <h3> 5-day Forecast</h3> </header>
+                            <div id="forecast1" class="col card-panel teal">
+                              <h6 id="date1"></h6>
+                              <p id="temperature1"></p>
+                              <p id="humidity1"></p>
+                              <img id="icon1"></img>
+                            </div>
+                  
+                            <div id="forecast2" class="col card-panel teal">
+                              <h6 id="date2"></h6>
+                              <p id="temperature2"></p>
+                              <p id="humidity2"></p>
+                              <img id="icon2"></img>
+                            </div>
+                  
+                            <div id="forecast3" class="col card-panel teal">
+                              <h6 id="date3"></h6>
+                              <p id="temperature3"></p>
+                              <p id="humidity3"></p>
+                              <img id="icon3"></img>
+                            </div>
+                  
+                            <div id="forecast4" class="col card-panel teal">
+                              <h6 id="date4"></h6>
+                              <p id="temperature4"></p>
+                              <p id="humidity4"></p>
+                              <img id="icon4"></img>
+                            </div>
+                  
+                            <div id="forecast5" class="col card-panel teal">
+                              <h6 id="date5"></h6>
+                              <p id="temperature5"></p>
+                              <p id="humidity5"></p>
+                              <img id="icon5"></img>
+                            </div>
+                  
+                    </div>
+               
+                </div>
+            </div>
+        
+
+    </main>
+   
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="./script.js" ></script>    
+  </body>
+</html>
+
+
+
+
