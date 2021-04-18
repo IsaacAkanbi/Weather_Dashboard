@@ -1,6 +1,6 @@
     
 .stretch-card>.card {
-    width: 100%;
+    width: 50%;
     /* min-width: 100% */
 }
 
@@ -15,30 +15,23 @@ body {
     flex: 1 1 auto
 }
 
-/* @media (max-width:991.98px) {
-    .padding {
-        padding: 1.5rem
-    }
-} */
-
 @media (max-width:767.98px) {
     .padding {
         padding: 1rem
     }
 }
 .hero {
-    padding: 5px;
+    padding: 1px;
     border: 3px;
-    margin: 5px;
+    margin: 2px;
     background-color: rgba(32, 150, 81, 0.815);
     text-align: center;
-    font-weight: 100;
+    font-weight: 50;
 }
 
 .padding {
-    padding: 5rem
+    padding: 2rem
 }
-
 
 .container {
   box-sizing: content-box; }
